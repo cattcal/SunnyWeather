@@ -7,8 +7,19 @@ import retrofit2.await
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
+import kotlin.math.ln
 
 object SunnyWeatherNetWork {
+
+    //
+    private val weatherService = ServiceCreator.create<WeatherService>()
+    suspend fun getDailyWeather(lng: String, lat: String) =
+        weatherService.getDailyWeather(lng, lat).await()
+
+    suspend fun getRealtime(lng: String, lat: String) =
+        weatherService.getRealtimeWeather(lng, lat).await()
+
+    //搜索全球城市数据功能。
     private val placeService = ServiceCreator.create<PlaceService>()
 
     suspend fun searchPlaces(query: String) = placeService.searchPlaces(query).await()
